@@ -5,6 +5,7 @@
  */
 package crimecount;
 
+import classes.CrimeRecord;
 import java.io.IOException;
 import java.util.Iterator;
 import org.apache.hadoop.io.IntWritable;
@@ -18,16 +19,18 @@ import org.apache.hadoop.mapred.Reporter;
  *
  * @author shriroop_joshi
  */
-public class DistrictCrimeReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
+public class DistrictCrimeReducer extends MapReduceBase implements Reducer<Text, CrimeRecord, Text, IntWritable> {
 
     @Override
-    public void reduce(Text key, Iterator<IntWritable> valueItr, OutputCollector<Text, IntWritable> oc, Reporter rprtr)
+    public void reduce(Text key, Iterator<CrimeRecord> valueItr, OutputCollector<Text, IntWritable> oc, Reporter rprtr)
             throws IOException {
         int crimes = 0;
         while(valueItr.hasNext()) {
-            crimes += valueItr.next().get();
+            crimes += 1;
         }
         oc.collect(key, new IntWritable(crimes));
+        
+        
     }
     
 }

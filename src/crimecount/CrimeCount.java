@@ -30,11 +30,14 @@ public class CrimeCount {
         // TODO code application logic here
         JobConf conf = new JobConf(CrimeCount.class);
         conf.setJobName("crime count");
+        
         conf.setMapperClass(DistrictCrimeMapper.class);
         conf.setCombinerClass(DistrictCrimeReducer.class);
         conf.setReducerClass(DistrictCrimeReducer.class);
+        
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(IntWritable.class);
+        
         conf.setInputFormat(TextInputFormat.class);
         conf.setOutputFormat(TextOutputFormat.class);
         FileInputFormat.setInputPaths(conf, new Path(args[0]));
